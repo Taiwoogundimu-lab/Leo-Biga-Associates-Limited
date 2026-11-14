@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion, MotionConfig } from 'motion/react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { ARCHITECTURAL_EASE } from './components/MotionPrimitives';
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { ServicesPage } from './pages/ServicesPage';
@@ -30,11 +32,13 @@ function ScrollAndTitleManager() {
 
     if (hash) {
       const targetId = hash.replace('#', '');
-      const el = document.getElementById(targetId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
+      const timer = window.setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 240);
+      return () => window.clearTimeout(timer);
     }
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, [pathname, hash]);
@@ -42,27 +46,47 @@ function ScrollAndTitleManager() {
   return null;
 }
 
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -4 }}
+        transition={{ duration: 0.2, ease: ARCHITECTURAL_EASE }}
+      >
+        <Routes location={location}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/team" element={<TeamPage />} />
+          <Route path="/clients" element={<ClientsPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 export function App() {
   return (
-    <BrowserRouter>
-      <ScrollAndTitleManager />
-      <div className="min-h-screen flex flex-col bg-[#F5F2EA] text-[#202522]">
-        <Header />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/team" element={<TeamPage />} />
-            <Route path="/clients" element={<ClientsPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <MotionConfig reducedMotion="user">
+      <BrowserRouter>
+        <ScrollAndTitleManager />
+        <div className="min-h-screen flex flex-col bg-[#F5F2EA] text-[#202522]">
+          <Header />
+          <main className="flex-1">
+            <AnimatedRoutes />
+          </main>
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </MotionConfig>
   );
 }
 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Building2 } from 'lucide-react';
+import { ArchitecturalReveal, StaggerGrid, StaggerItem } from './MotionPrimitives';
 import { CLIENTS, ClientItem } from '../data/clients';
 
 const SECTORS: Array<'All' | ClientItem['sector']> = [
@@ -23,7 +24,7 @@ export function ClientsSection({ compact = false }: { compact?: boolean }) {
     <section className="bg-white py-12 sm:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {!compact && (
-          <div className="flex flex-wrap items-center gap-2 pb-6 sm:pb-8 mb-8 sm:mb-10 border-b border-[#123D35]/15">
+          <ArchitecturalReveal className="flex flex-wrap items-center gap-2 pb-6 sm:pb-8 mb-8 sm:mb-10 border-b border-[#123D35]/15">
             {SECTORS.map((s) => (
               <button
                 key={s}
@@ -38,15 +39,19 @@ export function ClientsSection({ compact = false }: { compact?: boolean }) {
                 {s === 'All' ? `All Organisations (${CLIENTS.length})` : s}
               </button>
             ))}
-          </div>
+          </ArchitecturalReveal>
         )}
 
         {/* Typographic Client Wall (Zero fake logos) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <StaggerGrid
+          key={compact ? 'compact' : sector}
+          trigger={compact ? 'inView' : 'mount'}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
           {displayed.map((client) => (
-            <div
+            <StaggerItem
               key={client.id}
-              className="bg-[#F5F2EA]/75 border border-[#123D35]/15 p-6 flex flex-col justify-between hover:border-[#C5A46D] transition-colors"
+              className="bg-[#F5F2EA]/75 border border-[#123D35]/15 p-6 flex flex-col justify-between transition-all duration-200 hover:-translate-y-0.5 hover:border-[#C5A46D]"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 text-[11px] font-medium tracking-[0.12em] text-[#C5A46D] uppercase">
@@ -59,12 +64,12 @@ export function ClientsSection({ compact = false }: { compact?: boolean }) {
                   {client.name}
                 </h3>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGrid>
 
         {/* Private & Discerning Individuals Statement */}
-        <div className="mt-10 sm:mt-12 bg-[#123D35] text-[#F5F2EA] p-6 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <ArchitecturalReveal className="mt-10 sm:mt-12 bg-[#123D35] text-[#F5F2EA] p-6 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-start gap-4 max-w-3xl">
             <Building2 className="w-6 h-6 text-[#C5A46D] shrink-0 mt-1" />
             <div>
@@ -77,7 +82,7 @@ export function ClientsSection({ compact = false }: { compact?: boolean }) {
               </p>
             </div>
           </div>
-        </div>
+        </ArchitecturalReveal>
       </div>
     </section>
   );

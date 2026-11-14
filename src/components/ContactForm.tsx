@@ -1,5 +1,7 @@
 import { FormEvent, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { AlertCircle, CheckCircle2, Loader2, Send } from 'lucide-react';
+import { ARCHITECTURAL_EASE } from './MotionPrimitives';
 
 const SERVICE_OPTIONS = [
   'Architecture and Building Design',
@@ -140,30 +142,42 @@ export function ContactForm() {
         </p>
       </div>
 
-      {successInfo && (
-        <div
-          role="status"
-          className="mb-8 bg-emerald-50 border border-emerald-800/30 p-5 flex items-start gap-3.5"
-        >
-          <CheckCircle2 className="w-5 h-5 text-emerald-800 shrink-0 mt-0.5" />
-          <div className="text-sm text-emerald-950 space-y-1">
-            <p className="font-semibold">
-              Thank you — your enquiry has been submitted (Ref: {successInfo.referenceId}).
-            </p>
-            <p className="text-emerald-900/90 leading-relaxed">{successInfo.message}</p>
-          </div>
-        </div>
-      )}
+      <AnimatePresence mode="sync">
+        {successInfo && (
+          <motion.div
+            key="contact-success"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.2, ease: ARCHITECTURAL_EASE }}
+            role="status"
+            className="mb-8 bg-emerald-50 border border-emerald-800/30 p-5 flex items-start gap-3.5"
+          >
+            <CheckCircle2 className="w-5 h-5 text-emerald-800 shrink-0 mt-0.5" />
+            <div className="text-sm text-emerald-950 space-y-1">
+              <p className="font-semibold">
+                Thank you — your enquiry has been submitted (Ref: {successInfo.referenceId}).
+              </p>
+              <p className="text-emerald-900/90 leading-relaxed">{successInfo.message}</p>
+            </div>
+          </motion.div>
+        )}
 
-      {submitError && (
-        <div
-          role="alert"
-          className="mb-6 bg-red-50 border border-red-800/30 p-4 flex items-start gap-3 text-sm text-red-900"
-        >
-          <AlertCircle className="w-5 h-5 text-red-700 shrink-0 mt-0.5" />
-          <span>{submitError}</span>
-        </div>
-      )}
+        {submitError && (
+          <motion.div
+            key="contact-error"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.18, ease: ARCHITECTURAL_EASE }}
+            role="alert"
+            className="mb-6 bg-red-50 border border-red-800/30 p-4 flex items-start gap-3 text-sm text-red-900"
+          >
+            <AlertCircle className="w-5 h-5 text-red-700 shrink-0 mt-0.5" />
+            <span>{submitError}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <form onSubmit={handleSubmit} noValidate className="space-y-5">
         {/* Honeypot anti-spam field */}
@@ -364,7 +378,7 @@ export function ContactForm() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full sm:w-auto min-h-[46px] inline-flex items-center justify-center gap-2.5 px-8 py-3.5 text-xs sm:text-sm font-semibold tracking-wider uppercase bg-[#123D35] text-[#F5F2EA] hover:bg-[#0B2822] disabled:opacity-60 disabled:cursor-not-allowed transition-colors cursor-pointer whitespace-nowrap"
+            className="w-full sm:w-auto min-h-[46px] inline-flex items-center justify-center gap-2.5 px-8 py-3.5 text-xs sm:text-sm font-semibold tracking-wider uppercase bg-[#123D35] text-[#F5F2EA] hover:bg-[#0B2822] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed transition-all cursor-pointer whitespace-nowrap"
           >
             {submitting ? (
               <>

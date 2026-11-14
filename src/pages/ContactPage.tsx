@@ -2,6 +2,7 @@ import { Mail, MapPin, MessageCircle, Phone, UserCheck } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { ContactForm } from '../components/ContactForm';
 import { LBALogo } from '../components/LBALogo';
+import { ArchitecturalReveal } from '../components/MotionPrimitives';
 import { COMPANY_INFO } from '../data/company';
 
 export function ContactPage() {
@@ -16,7 +17,7 @@ export function ContactPage() {
       <section className="py-12 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Left Column: Managing Partner & Office Details */}
-          <div className="lg:col-span-5 space-y-6">
+          <ArchitecturalReveal className="lg:col-span-5 space-y-6">
             {/* CONTACT THE MANAGING PARTNER Highlight */}
             <div className="bg-[#123D35] text-[#F5F2EA] p-5 sm:p-8 border border-[#C5A46D]/30">
               <div className="flex items-center justify-between gap-4 mb-5">
@@ -123,12 +124,12 @@ export function ContactPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </ArchitecturalReveal>
 
           {/* Right Column: Functional Contact Form */}
-          <div className="lg:col-span-7">
+          <ArchitecturalReveal delay={0.08} className="lg:col-span-7">
             <ContactForm />
-          </div>
+          </ArchitecturalReveal>
         </div>
       </section>
     </div>

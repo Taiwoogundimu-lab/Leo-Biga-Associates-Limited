@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { LBALogo } from './LBALogo';
+import { ARCHITECTURAL_EASE } from './MotionPrimitives';
 
 const NAV_ITEMS = [
   { label: 'Home', to: '/' },
@@ -53,14 +55,23 @@ export function Header() {
               to={item.to}
               end={item.to === '/'}
               className={({ isActive }) =>
-                `whitespace-nowrap shrink-0 py-1 border-b-2 transition-colors duration-150 ${
-                  isActive
-                    ? 'border-[#C5A46D] text-[#123D35] font-semibold'
-                    : 'border-transparent hover:text-[#123D35] hover:border-[#C5A46D]/60'
+                `relative whitespace-nowrap shrink-0 py-1.5 transition-colors duration-150 ${
+                  isActive ? 'text-[#123D35] font-semibold' : 'hover:text-[#123D35]'
                 }`
               }
             >
-              {item.label}
+              {({ isActive }) => (
+                <>
+                  <span>{item.label}</span>
+                  {isActive && (
+                    <motion.span
+                      layoutId="desktop-nav-underline"
+                      transition={{ duration: 0.22, ease: ARCHITECTURAL_EASE }}
+                      className="absolute inset-x-0 bottom-0 h-0.5 bg-[#C5A46D]"
+                    />
+                  )}
+                </>
+              )}
             </NavLink>
           ))}
         </nav>
@@ -87,34 +98,42 @@ export function Header() {
       </div>
 
       {/* Mobile & Tablet Navigation Drawer */}
-      {mobileOpen && (
-        <div className="xl:hidden bg-[#F5F2EA] border-t border-[#123D35]/15 px-4 py-4 shadow-lg max-h-[calc(100dvh-4rem)] overflow-y-auto">
-          <nav aria-label="Mobile navigation" className="flex flex-col gap-1">
-            {NAV_ITEMS.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.to === '/'}
-                className={({ isActive }) =>
-                  `min-h-[44px] flex items-center px-3 py-2.5 text-sm font-medium border-b border-[#123D35]/10 transition-colors ${
-                    isActive
-                      ? 'text-[#123D35] font-semibold bg-white'
-                      : 'text-[#202522] hover:bg-white/60'
-                  }`
-                }
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18, ease: ARCHITECTURAL_EASE }}
+            className="xl:hidden bg-[#F5F2EA] border-t border-[#123D35]/15 px-4 py-4 shadow-lg max-h-[calc(100dvh-4rem)] overflow-y-auto"
+          >
+            <nav aria-label="Mobile navigation" className="flex flex-col gap-1">
+              {NAV_ITEMS.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.to === '/'}
+                  className={({ isActive }) =>
+                    `min-h-[44px] flex items-center px-3 py-2.5 text-sm font-medium border-b border-[#123D35]/10 transition-colors ${
+                      isActive
+                        ? 'text-[#123D35] font-semibold bg-white'
+                        : 'text-[#202522] hover:bg-white/60'
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+              <Link
+                to="/contact#consultation"
+                className="mt-4 min-h-[44px] inline-flex items-center justify-center px-5 py-3 text-xs font-semibold tracking-wider uppercase bg-[#123D35] text-[#F5F2EA] border border-[#C5A46D]"
               >
-                {item.label}
-              </NavLink>
-            ))}
-            <Link
-              to="/contact#consultation"
-              className="mt-4 min-h-[44px] inline-flex items-center justify-center px-5 py-3 text-xs font-semibold tracking-wider uppercase bg-[#123D35] text-[#F5F2EA] border border-[#C5A46D]"
-            >
-              Request a Consultation
-            </Link>
-          </nav>
-        </div>
-      )}
+                Request a Consultation
+              </Link>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

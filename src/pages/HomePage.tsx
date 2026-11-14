@@ -5,6 +5,7 @@ import { AboutSection } from '../components/AboutSection';
 import { ServicesSection } from '../components/ServicesSection';
 import { ProjectPortfolio } from '../components/ProjectPortfolio';
 import { ClientsSection } from '../components/ClientsSection';
+import { ArchitecturalReveal } from '../components/MotionPrimitives';
 import { COMPANY_INFO } from '../data/company';
 
 export function HomePage() {
@@ -18,7 +19,7 @@ export function HomePage() {
 
       {/* Selected Projects Preview */}
       <section className="bg-[#F5F2EA] pt-16 lg:pt-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <ArchitecturalReveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold tracking-[0.2em] text-[#C5A46D] uppercase mb-3">
               Selected Commissions
@@ -33,18 +34,18 @@ export function HomePage() {
           </div>
           <Link
             to="/projects"
-            className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-[#123D35] border-b border-[#C5A46D] pb-1 hover:text-[#C5A46D] transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-[#123D35] border-b border-[#C5A46D] pb-1 hover:text-[#C5A46D] transition-colors whitespace-nowrap shrink-0 group"
           >
             Explore All 41 Projects
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </Link>
-        </div>
+        </ArchitecturalReveal>
         <ProjectPortfolio previewCount={6} />
       </section>
 
       {/* Clients Preview */}
       <section className="bg-white pt-16 lg:pt-20 border-t border-[#123D35]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <ArchitecturalReveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold tracking-[0.2em] text-[#C5A46D] uppercase mb-3">
               Institutional &amp; Corporate Trust
@@ -55,18 +56,18 @@ export function HomePage() {
           </div>
           <Link
             to="/clients"
-            className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-[#123D35] border-b border-[#C5A46D] pb-1 hover:text-[#C5A46D] transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-[#123D35] border-b border-[#C5A46D] pb-1 hover:text-[#C5A46D] transition-colors whitespace-nowrap shrink-0 group"
           >
             View All 21 Organisations
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </Link>
-        </div>
+        </ArchitecturalReveal>
         <ClientsSection compact />
       </section>
 
       {/* Contact Managing Partner CTA Band */}
       <section className="bg-[#0B2822] text-[#F5F2EA] py-12 sm:py-16 lg:py-20 border-t border-[#C5A46D]/25">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+        <ArchitecturalReveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold tracking-[0.2em] text-[#C5A46D] uppercase">
               Contact the Managing Partner
@@ -83,10 +84,10 @@ export function HomePage() {
           <div className="w-full lg:w-auto flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 shrink-0">
             <Link
               to="/contact#consultation"
-              className="w-full sm:w-auto min-h-[46px] inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs font-semibold tracking-wider uppercase bg-[#C5A46D] text-[#123D35] hover:bg-[#D9C298] transition-colors whitespace-nowrap"
+              className="w-full sm:w-auto min-h-[46px] inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs font-semibold tracking-wider uppercase bg-[#C5A46D] text-[#123D35] hover:bg-[#D9C298] transition-colors whitespace-nowrap group"
             >
               Request a Consultation
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
             <a
               href={COMPANY_INFO.whatsappUrl}
@@ -98,7 +99,7 @@ export function HomePage() {
               WhatsApp Us
             </a>
           </div>
-        </div>
+        </ArchitecturalReveal>
       </section>
     </div>
   );

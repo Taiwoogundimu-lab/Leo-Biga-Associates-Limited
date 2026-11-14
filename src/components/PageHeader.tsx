@@ -1,3 +1,6 @@
+import { motion } from 'motion/react';
+import { ARCHITECTURAL_EASE } from './MotionPrimitives';
+
 interface PageHeaderProps {
   eyebrow: string;
   title: string;
@@ -7,7 +10,12 @@ interface PageHeaderProps {
 export function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps) {
   return (
     <section className="bg-[#123D35] text-[#F5F2EA] py-10 sm:py-16 lg:py-20 border-b border-[#C5A46D]/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.42, ease: ARCHITECTURAL_EASE }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <p className="text-xs font-semibold tracking-[0.16em] sm:tracking-[0.2em] text-[#C5A46D] uppercase">
           {eyebrow}
         </p>
@@ -17,7 +25,7 @@ export function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps) {
         <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-[#F5F2EA]/80 leading-relaxed max-w-2xl">
           {subtitle}
         </p>
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import {
   CheckCircle2,
   Clock,
@@ -9,6 +10,12 @@ import {
   Search,
   X,
 } from 'lucide-react';
+import {
+  ARCHITECTURAL_EASE,
+  ArchitecturalReveal,
+  StaggerGrid,
+  StaggerItem,
+} from './MotionPrimitives';
 import { PROJECTS, ProjectItem, ProjectStatus } from '../data/projects';
 import heroImg from '../assets/images/hero_modern_architecture_1794682084561.jpg';
 import commercialImg from '../assets/images/commercial_institutional_architecture_1794682083345.jpg';
@@ -117,7 +124,7 @@ export function ProjectPortfolio({ previewCount }: ProjectPortfolioProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Controls Toolbar */}
         {!previewCount && (
-          <div className="bg-white border border-[#123D35]/15 p-4 sm:p-6 mb-8 sm:mb-10 space-y-4 sm:space-y-5">
+          <ArchitecturalReveal className="bg-white border border-[#123D35]/15 p-4 sm:p-6 mb-8 sm:mb-10 space-y-4 sm:space-y-5">
             {/* Category Filter Buttons */}
             <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Project categories">
               {FILTER_OPTIONS.map((option) => {
@@ -212,7 +219,7 @@ export function ProjectPortfolio({ previewCount }: ProjectPortfolioProps) {
                 <span className="font-mono font-medium text-[#123D35]">D CM</span>
               </p>
             </div>
-          </div>
+          </ArchitecturalReveal>
         )}
 
         {/* Empty State */}
@@ -236,7 +243,12 @@ export function ProjectPortfolio({ previewCount }: ProjectPortfolioProps) {
           </div>
         ) : viewMode === 'table' && !previewCount ? (
           /* Schedule / Ledger View: Responsive Mobile Cards + Desktop Table */
-          <div>
+          <motion.div
+            key={`table-${activeFilter}-${statusFilter}-${searchQuery}`}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, ease: ARCHITECTURAL_EASE }}
+          >
             {/* Mobile Stacked Schedule List */}
             <div className="md:hidden space-y-3">
               {visibleProjects.map((project) => (
@@ -302,16 +314,20 @@ export function ProjectPortfolio({ previewCount }: ProjectPortfolioProps) {
                 </tbody>
               </table>
             </div>
-          </div>
+          </motion.div>
         ) : (
           /* Architectural Card Grid View */
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <StaggerGrid
+            key={previewCount ? 'preview' : `grid-${activeFilter}-${statusFilter}-${searchQuery}`}
+            trigger={previewCount ? 'inView' : 'mount'}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
             {visibleProjects.map((project) => (
-              <article
-                key={project.id}
-                onClick={() => setSelectedProject(project)}
-                className="bg-white border border-[#123D35]/15 hover:border-[#C5A46D] transition-colors flex flex-col cursor-pointer group"
-              >
+              <StaggerItem key={project.id} className="h-full">
+                <article
+                  onClick={() => setSelectedProject(project)}
+                  className="h-full bg-white border border-[#123D35]/15 hover:border-[#C5A46D] transition-all duration-200 hover:-translate-y-0.5 flex flex-col cursor-pointer group"
+                >
                 <div className="aspect-[4/3] w-full overflow-hidden bg-[#123D35]/10 relative">
                   <img
                     src={project.imageUrl || IMAGE_MAP[project.imageKey]}
@@ -350,78 +366,89 @@ export function ProjectPortfolio({ previewCount }: ProjectPortfolioProps) {
                     <span className="font-semibold text-[#123D35]">Details</span>
                   </div>
                 </div>
-              </article>
+                </article>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGrid>
         )}
       </div>
 
       {/* Project Detail Modal */}
-      {selectedProject && (
-        <div
-          className="fixed inset-0 z-50 bg-[#0B2822]/70 flex items-center justify-center p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="project-modal-title"
-          onClick={() => setSelectedProject(null)}
-        >
-          <div
-            className="bg-white border border-[#C5A46D]/40 max-w-xl w-full max-h-[90dvh] overflow-y-auto shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18, ease: ARCHITECTURAL_EASE }}
+            className="fixed inset-0 z-50 bg-[#0B2822]/70 flex items-center justify-center p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
+            onClick={() => setSelectedProject(null)}
           >
-            <div className="aspect-[16/9] w-full relative bg-[#123D35]/10">
-              <img
-                src={selectedProject.imageUrl || IMAGE_MAP[selectedProject.imageKey]}
-                alt={selectedProject.name}
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover"
-              />
-              <button
-                type="button"
-                onClick={() => setSelectedProject(null)}
-                aria-label="Close project details"
-                className="absolute top-3 right-3 w-11 h-11 bg-[#123D35] text-white flex items-center justify-center hover:bg-[#0B2822] cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="p-5 sm:p-8">
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                <span className="text-xs font-semibold tracking-wider uppercase text-[#C5A46D]">
-                  {selectedProject.region} Commission
-                </span>
-                <StatusIndicator status={selectedProject.status} />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.97, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.98, y: 6 }}
+              transition={{ duration: 0.22, ease: ARCHITECTURAL_EASE }}
+              className="bg-white border border-[#C5A46D]/40 max-w-xl w-full max-h-[90dvh] overflow-y-auto shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="aspect-[16/9] w-full relative bg-[#123D35]/10">
+                <img
+                  src={selectedProject.imageUrl || IMAGE_MAP[selectedProject.imageKey]}
+                  alt={selectedProject.name}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={() => setSelectedProject(null)}
+                  aria-label="Close project details"
+                  className="absolute top-3 right-3 w-11 h-11 bg-[#123D35] text-white flex items-center justify-center hover:bg-[#0B2822] transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
 
-              <h3 id="project-modal-title" className="font-display text-xl sm:text-2xl font-semibold text-[#123D35]">
-                {selectedProject.name}
-              </h3>
+              <div className="p-5 sm:p-8">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <span className="text-xs font-semibold tracking-wider uppercase text-[#C5A46D]">
+                    {selectedProject.region} Commission
+                  </span>
+                  <StatusIndicator status={selectedProject.status} />
+                </div>
 
-              <dl className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 pt-5 border-t border-[#123D35]/15 text-sm">
-                <div>
-                  <dt className="text-xs text-[#202522]/60 uppercase tracking-wider">Location</dt>
-                  <dd className="mt-1 font-medium text-[#202522]">{selectedProject.location}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs text-[#202522]/60 uppercase tracking-wider">Recorded Role</dt>
-                  <dd className="mt-1 font-mono font-semibold text-[#123D35]">{selectedProject.role}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs text-[#202522]/60 uppercase tracking-wider">Project Value</dt>
-                  <dd className="mt-1 font-mono font-semibold text-[#123D35] tabular-nums">
-                    {formatProjectValue(selectedProject)}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs text-[#202522]/60 uppercase tracking-wider">Sectors</dt>
-                  <dd className="mt-1 text-[#202522]">{selectedProject.categories.join(' · ')}</dd>
-                </div>
-              </dl>
-            </div>
-          </div>
-        </div>
-      )}
+                <h3 id="project-modal-title" className="font-display text-xl sm:text-2xl font-semibold text-[#123D35]">
+                  {selectedProject.name}
+                </h3>
+
+                <dl className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 pt-5 border-t border-[#123D35]/15 text-sm">
+                  <div>
+                    <dt className="text-xs text-[#202522]/60 uppercase tracking-wider">Location</dt>
+                    <dd className="mt-1 font-medium text-[#202522]">{selectedProject.location}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-[#202522]/60 uppercase tracking-wider">Recorded Role</dt>
+                    <dd className="mt-1 font-mono font-semibold text-[#123D35]">{selectedProject.role}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-[#202522]/60 uppercase tracking-wider">Project Value</dt>
+                    <dd className="mt-1 font-mono font-semibold text-[#123D35] tabular-nums">
+                      {formatProjectValue(selectedProject)}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-[#202522]/60 uppercase tracking-wider">Sectors</dt>
+                    <dd className="mt-1 text-[#202522]">{selectedProject.categories.join(' · ')}</dd>
+                  </div>
+                </dl>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

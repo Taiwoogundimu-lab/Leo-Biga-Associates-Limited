@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { GraduationCap } from 'lucide-react';
+import { ArchitecturalReveal, StaggerGrid, StaggerItem } from './MotionPrimitives';
 import { TEAM_MEMBERS, TeamMember } from '../data/team';
 
 const DEPARTMENTS: Array<'All' | TeamMember['department']> = [
@@ -21,7 +22,7 @@ export function TeamProfiles() {
     <section className="bg-[#F5F2EA] py-12 sm:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Department Filter */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 sm:pb-8 mb-8 sm:mb-10 border-b border-[#123D35]/15">
+        <ArchitecturalReveal className="flex flex-wrap items-center justify-between gap-4 pb-6 sm:pb-8 mb-8 sm:mb-10 border-b border-[#123D35]/15">
           <div className="flex flex-wrap items-center gap-2">
             {DEPARTMENTS.map((dept) => (
               <button
@@ -41,15 +42,17 @@ export function TeamProfiles() {
           <p className="text-xs text-[#202522]/70">
             Key Officers and Multidisciplinary Professional Staff
           </p>
-        </div>
+        </ArchitecturalReveal>
 
         {/* Team Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <StaggerGrid
+          key={department}
+          trigger="mount"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"
+        >
           {filtered.map((member) => (
-            <article
-              key={member.id}
-              className="bg-white border border-[#123D35]/15 flex flex-col justify-between"
-            >
+            <StaggerItem key={member.id} className="h-full">
+              <article className="h-full bg-white border border-[#123D35]/15 flex flex-col justify-between transition-all duration-200 hover:-translate-y-0.5 hover:border-[#C5A46D]/70">
               <div>
                 {/* Portrait or Neutral Architectural Initials Placeholder */}
                 <div className="bg-[#123D35] px-5 py-6 sm:px-6 sm:py-8 flex items-center gap-4 sm:gap-5 border-b border-[#C5A46D]/30">
@@ -114,9 +117,10 @@ export function TeamProfiles() {
                   </div>
                 </div>
               </div>
-            </article>
+              </article>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGrid>
       </div>
     </section>
   );

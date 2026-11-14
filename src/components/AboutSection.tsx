@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Check } from 'lucide-react';
+import { ArchitecturalReveal, StaggerGrid, StaggerItem } from './MotionPrimitives';
 import { COMPANY_INFO, CORE_COMPETENCIES, HOMEPAGE_HIGHLIGHTS } from '../data/company';
 import planningImg from '../assets/images/architectural_planning_studio_1794682084858.jpg';
 import commercialImg from '../assets/images/commercial_institutional_architecture_1794682083345.jpg';
@@ -15,7 +16,7 @@ export function AboutSection({ mode = 'full' }: AboutSectionProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* 2-Column Intro Split */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
-            <div className="lg:col-span-7 flex flex-col justify-center">
+            <ArchitecturalReveal className="lg:col-span-7 flex flex-col justify-center">
               <p className="text-xs font-semibold tracking-[0.2em] text-[#123D35] uppercase mb-3">
                 Practice Profile
               </p>
@@ -43,32 +44,32 @@ export function AboutSection({ mode = 'full' }: AboutSectionProps) {
               <div className="mt-8">
                 <Link
                   to="/about"
-                  className="inline-flex items-center gap-2.5 px-6 py-3 text-xs font-semibold tracking-wider uppercase bg-[#123D35] text-[#F5F2EA] hover:bg-[#0B2822] transition-colors whitespace-nowrap"
+                  className="inline-flex items-center gap-2.5 px-6 py-3 text-xs font-semibold tracking-wider uppercase bg-[#123D35] text-[#F5F2EA] hover:bg-[#0B2822] transition-colors whitespace-nowrap group"
                 >
                   Read More
-                  <ArrowRight className="w-4 h-4 text-[#C5A46D]" />
+                  <ArrowRight className="w-4 h-4 text-[#C5A46D] transition-transform duration-200 group-hover:translate-x-0.5" />
                 </Link>
               </div>
-            </div>
+            </ArchitecturalReveal>
 
-            <div className="lg:col-span-5">
-              <div className="h-full min-h-[220px] sm:min-h-[280px] bg-white border border-[#123D35]/15 p-2">
+            <ArchitecturalReveal delay={0.08} className="lg:col-span-5">
+              <div className="h-full min-h-[220px] sm:min-h-[280px] bg-white border border-[#123D35]/15 p-2 overflow-hidden group">
                 <img
                   src={planningImg}
                   alt="Architectural drafting table with site masterplans and timber scale model"
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                 />
               </div>
-            </div>
+            </ArchitecturalReveal>
           </div>
 
           {/* 4-Column Highlights Strip */}
-          <div className="mt-14 pt-10 border-t border-[#123D35]/15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <StaggerGrid className="mt-14 pt-10 border-t border-[#123D35]/15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {HOMEPAGE_HIGHLIGHTS.map((item) => (
-              <div
+              <StaggerItem
                 key={item.label}
-                className="bg-white border border-[#123D35]/12 p-6 flex flex-col justify-between"
+                className="bg-white border border-[#123D35]/12 p-6 flex flex-col justify-between transition-all duration-200 hover:-translate-y-0.5 hover:border-[#C5A46D]/60"
               >
                 <div>
                   <p className="text-xs font-semibold tracking-[0.14em] text-[#C5A46D] uppercase">
@@ -79,9 +80,9 @@ export function AboutSection({ mode = 'full' }: AboutSectionProps) {
                   </p>
                 </div>
                 <p className="mt-3 text-xs text-[#202522]/70 leading-relaxed">{item.detail}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGrid>
         </div>
       </section>
     );
@@ -93,7 +94,7 @@ export function AboutSection({ mode = 'full' }: AboutSectionProps) {
       <section className="py-12 sm:py-16 lg:py-20 border-b border-[#123D35]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
-            <div className="lg:col-span-7 flex flex-col justify-center">
+            <ArchitecturalReveal className="lg:col-span-7 flex flex-col justify-center">
               <p className="text-xs font-semibold tracking-[0.2em] text-[#C5A46D] uppercase mb-3">
                 Company Overview
               </p>
@@ -117,18 +118,18 @@ export function AboutSection({ mode = 'full' }: AboutSectionProps) {
                   leadership of Architect Muyiwa Ige, FNIA.
                 </p>
               </div>
-            </div>
+            </ArchitecturalReveal>
 
-            <div className="lg:col-span-5">
-              <div className="h-full min-h-[300px] bg-white border border-[#123D35]/15 p-2">
+            <ArchitecturalReveal delay={0.08} className="lg:col-span-5">
+              <div className="h-full min-h-[300px] bg-white border border-[#123D35]/15 p-2 overflow-hidden group">
                 <img
                   src={commercialImg}
                   alt="Modern institutional and corporate architectural facade"
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                 />
               </div>
-            </div>
+            </ArchitecturalReveal>
           </div>
         </div>
       </section>
@@ -137,7 +138,7 @@ export function AboutSection({ mode = 'full' }: AboutSectionProps) {
       <section className="py-12 sm:py-16 lg:py-20 bg-white border-b border-[#123D35]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Vision */}
-          <div className="lg:col-span-5 bg-[#123D35] text-[#F5F2EA] p-6 sm:p-10 flex flex-col justify-between">
+          <ArchitecturalReveal className="lg:col-span-5 bg-[#123D35] text-[#F5F2EA] p-6 sm:p-10 flex flex-col justify-between">
             <div>
               <p className="text-xs font-semibold tracking-[0.2em] text-[#C5A46D] uppercase">
                 Our Vision
@@ -149,10 +150,10 @@ export function AboutSection({ mode = 'full' }: AboutSectionProps) {
             <p className="mt-8 pt-6 border-t border-white/15 text-xs tracking-[0.14em] text-[#D9C298] uppercase">
               {COMPANY_INFO.motto}
             </p>
-          </div>
+          </ArchitecturalReveal>
 
           {/* Core Competence */}
-          <div className="lg:col-span-7 bg-[#F5F2EA] border border-[#123D35]/15 p-6 sm:p-10">
+          <ArchitecturalReveal delay={0.08} className="lg:col-span-7 bg-[#F5F2EA] border border-[#123D35]/15 p-6 sm:p-10">
             <p className="text-xs font-semibold tracking-[0.2em] text-[#C5A46D] uppercase">
               Our Core Competence
             </p>
@@ -163,18 +164,18 @@ export function AboutSection({ mode = 'full' }: AboutSectionProps) {
               This involves professional service expertise across five integrated pillars:
             </p>
 
-            <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <StaggerGrid className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {CORE_COMPETENCIES.map((item) => (
-                <li
+                <StaggerItem
                   key={item}
-                  className="bg-white border border-[#123D35]/10 px-4 py-3.5 flex items-center gap-3 text-sm font-medium text-[#123D35]"
+                  className="bg-white border border-[#123D35]/10 px-4 py-3.5 flex items-center gap-3 text-sm font-medium text-[#123D35] transition-colors hover:border-[#C5A46D]/60"
                 >
                   <Check className="w-4 h-4 text-[#C5A46D] shrink-0" />
                   <span>{item}</span>
-                </li>
+                </StaggerItem>
               ))}
-            </ul>
-          </div>
+            </StaggerGrid>
+          </ArchitecturalReveal>
         </div>
       </section>
 
@@ -182,18 +183,18 @@ export function AboutSection({ mode = 'full' }: AboutSectionProps) {
       <section className="py-16 lg:py-20 bg-[#F5F2EA]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
-            <div className="lg:col-span-5 order-2 lg:order-1">
-              <div className="h-full min-h-[280px] bg-white border border-[#123D35]/15 p-2">
+            <ArchitecturalReveal className="lg:col-span-5 order-2 lg:order-1">
+              <div className="h-full min-h-[280px] bg-white border border-[#123D35]/15 p-2 overflow-hidden group">
                 <img
                   src={planningImg}
                   alt="Site plan documentation and architectural scale model"
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                 />
               </div>
-            </div>
+            </ArchitecturalReveal>
 
-            <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col justify-center">
+            <ArchitecturalReveal delay={0.08} className="lg:col-span-7 order-1 lg:order-2 flex flex-col justify-center">
               <p className="text-xs font-semibold tracking-[0.2em] text-[#C5A46D] uppercase mb-3">
                 Methodology
               </p>
@@ -219,7 +220,7 @@ export function AboutSection({ mode = 'full' }: AboutSectionProps) {
                   also collaborated with various firms on large-scale development projects.
                 </p>
               </div>
-            </div>
+            </ArchitecturalReveal>
           </div>
         </div>
       </section>

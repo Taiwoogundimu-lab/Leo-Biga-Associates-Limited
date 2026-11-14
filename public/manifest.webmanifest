@@ -1,0 +1,21 @@
+{
+  "name": "Leo Biga Associates Limited",
+  "short_name": "Leo Biga Associates",
+  "description": "Architects, Planners, Projects & Facilities Managers. International Development Consulting since 1993.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F2EA",
+  "theme_color": "#123D35",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/assets/leo-logo1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
