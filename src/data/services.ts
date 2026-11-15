@@ -7,7 +7,6 @@ export interface ServiceItem {
   imageAlt: string;
 }
 
-import heroImg from '../assets/images/hero_modern_architecture_1794682084561.jpg';
 import commercialImg from '../assets/images/commercial_institutional_architecture_1794682083345.jpg';
 import residentialImg from '../assets/images/residential_interior_architecture_1794682084505.jpg';
 import planningImg from '../assets/images/architectural_planning_studio_1794682084858.jpg';
@@ -105,8 +104,8 @@ export const SERVICES_LIST: ServiceItem[] = [
       'Construction management',
       'Development implementation',
     ],
-    image: heroImg,
-    imageAlt: 'Completed modern commercial development complex',
+    image: '/assets/service-construction-07.jpg',
+    imageAlt: 'Construction Services execution and site management by Leo Biga Associates Limited',
   },
   {
     number: '08',

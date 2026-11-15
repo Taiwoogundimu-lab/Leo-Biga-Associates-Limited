@@ -25,5 +25,5 @@ export const CLIENTS: ClientItem[] = [
   { id: 18, name: 'HOTCATT, Accra, Ghana', sector: 'Corporate & International' },
   { id: 19, name: 'Eco Bank Nigeria Plc', sector: 'Banking & Finance' },
   { id: 20, name: 'Oceanic Bank International Plc', sector: 'Banking & Finance' },
-  { id: 21, name: 'LIDDIE BEE LIMITED', sector: 'Corporate & International' },
+  { id: 21, name: 'LIDDIE BE LIMITED', sector: 'Corporate & International' },
 ];

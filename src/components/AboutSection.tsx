@@ -3,7 +3,6 @@ import { ArrowRight, Check } from 'lucide-react';
 import { ArchitecturalReveal, StaggerGrid, StaggerItem } from './MotionPrimitives';
 import { COMPANY_INFO, CORE_COMPETENCIES, HOMEPAGE_HIGHLIGHTS } from '../data/company';
 import planningImg from '../assets/images/architectural_planning_studio_1794682084858.jpg';
-import commercialImg from '../assets/images/commercial_institutional_architecture_1794682083345.jpg';
 
 interface AboutSectionProps {
   mode?: 'preview' | 'full';
@@ -123,8 +122,8 @@ export function AboutSection({ mode = 'full' }: AboutSectionProps) {
             <ArchitecturalReveal delay={0.08} className="lg:col-span-5">
               <div className="h-full min-h-[300px] bg-white border border-[#123D35]/15 p-2 overflow-hidden group">
                 <img
-                  src={commercialImg}
-                  alt="Modern institutional and corporate architectural facade"
+                  src="/assets/company-overview.jpg"
+                  alt="Leo Biga Associates Limited architectural project showcase"
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                 />
