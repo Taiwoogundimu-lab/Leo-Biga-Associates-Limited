@@ -109,6 +109,7 @@ export const PROJECTS: ProjectItem[] = [
     currency: 'NGN',
     categories: ['Architecture and Design', 'Commercial'],
     imageKey: 'commercial',
+    imageUrl: '/assets/project-nb-agodi.jpg',
   },
   {
     id: 'ng-nb-savings',
@@ -121,6 +122,7 @@ export const PROJECTS: ProjectItem[] = [
     currency: 'NGN',
     categories: ['Architecture and Design', 'Commercial'],
     imageKey: 'commercial',
+    imageUrl: '/assets/project-nb-savings.jpg',
   },
   {
     id: 'ng-nb-ilesa',
@@ -133,6 +135,7 @@ export const PROJECTS: ProjectItem[] = [
     currency: 'NGN',
     categories: ['Architecture and Design', 'Commercial'],
     imageKey: 'commercial',
+    imageUrl: '/assets/project-nb-ilesa.jpg',
   },
   {
     id: 'ng-nb-saki',
@@ -145,6 +148,7 @@ export const PROJECTS: ProjectItem[] = [
     currency: 'NGN',
     categories: ['Architecture and Design', 'Commercial'],
     imageKey: 'planning',
+    imageUrl: '/assets/project-nb-saki.jpg',
   },
   {
     id: 'ng-res-bodija',
@@ -169,6 +173,7 @@ export const PROJECTS: ProjectItem[] = [
     currency: 'NGN',
     categories: ['Architecture and Design', 'Residential'],
     imageKey: 'residential',
+    imageUrl: '/assets/project-res-agodi.jpg',
   },
   {
     id: 'ng-res-yaba',
@@ -181,6 +186,7 @@ export const PROJECTS: ProjectItem[] = [
     currency: 'NGN',
     categories: ['Architecture and Design', 'Residential'],
     imageKey: 'residential',
+    imageUrl: '/assets/project-private-res-lagos.jpg?v=2',
   },
   {
     id: 'ng-lapal-lagos',
@@ -290,6 +296,7 @@ export const PROJECTS: ProjectItem[] = [
     currency: 'NGN',
     categories: ['Architecture and Design', 'Commercial'],
     imageKey: 'commercial',
+    imageUrl: '/assets/project-cb-yemetu.png',
   },
   {
     id: 'ng-cb-zaria',
@@ -458,6 +465,7 @@ export const PROJECTS: ProjectItem[] = [
     currency: 'NGN',
     categories: ['Architecture and Design', 'Institutional'],
     imageKey: 'commercial',
+    imageUrl: '/assets/project-ui-law-faculty.jpg',
   },
   {
     id: 'ng-res-idi-ishin',
@@ -482,6 +490,7 @@ export const PROJECTS: ProjectItem[] = [
     currency: 'NGN',
     categories: ['Architecture and Design', 'Institutional'],
     imageKey: 'hero',
+    imageUrl: '/assets/project-ui-law-main.jpg',
   },
   {
     id: 'ng-ui-law-library',

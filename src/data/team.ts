@@ -28,7 +28,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     id: 2,
     name: 'Oyinda Ige',
     initials: 'OI',
-    photoUrl: '/assets/director-oi.jpg',
+    photoUrl: '/assets/director-oi.jpg?v=2',
     designation: 'Director – Environmental and Development Adviser',
     qualifications: [
       'LLB (Hons), Lagos.',
@@ -42,6 +42,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     id: 3,
     name: 'Lucas Omosebi',
     initials: 'LO',
+    photoUrl: '/assets/team-lucas-omosebi.jpg',
     designation: 'Auditor / Accountant',
     qualifications: [
       'B.Sc (Hons), University of Calabar.',
